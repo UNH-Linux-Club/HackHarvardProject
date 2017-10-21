@@ -13,6 +13,9 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
     Context context = this;
     MediaPlayer mplayer;
+    MediaPlayer mediaPlayer[] = new MediaPlayer[10];
+
+    int countPlayer = 0;
 
     int tapAmount = 0;
     int time = 1000;
@@ -24,7 +27,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mplayer = MediaPlayer.create(context, R.raw.clap1);
+        for (int i = 0; i < 10; i++){
+            mediaPlayer[i] = MediaPlayer.create(context, R.raw.clap1);
+        }
+        //mplayer = MediaPlayer.create(context, R.raw.clap1);
 
         timer = new Timer();
         TimerTask timerTask = new TimerTask() {
@@ -45,12 +51,24 @@ public class MainActivity extends AppCompatActivity {
         tapAmount++;
 
         try{
-            if(mplayer.isPlaying()){
-                mplayer.stop();
-                mplayer.release();
-                mplayer = MediaPlayer.create(context, R.raw.clap1);
+            if(countPlayer > 9){
+                countPlayer = 0;
             }
-            mplayer.start();
+            if(mediaPlayer[countPlayer].isPlaying()){
+                mediaPlayer[countPlayer].stop();
+                mediaPlayer[countPlayer].release();
+                if (frequency > 0 && frequency < 5) {
+                    mediaPlayer[countPlayer] = MediaPlayer.create(context, R.raw.clap1);
+                }
+                else if (frequency >= 5 && frequency < 7){
+                    mediaPlayer[countPlayer] = MediaPlayer.create(context, R.raw.clap1);
+                }
+                else {
+                    mediaPlayer[countPlayer] = MediaPlayer.create(context, R.raw.clap1);
+                }
+            }
+            mediaPlayer[countPlayer].start();
+            countPlayer++;
         } catch (Exception e){
             Log.d("", "can't play audio.");
         }
