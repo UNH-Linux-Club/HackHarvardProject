@@ -15,13 +15,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void toastReceive(View v)
+    public void onClick(View v)
     {
-        Context appContext = getApplicationContext();
-        CharSequence textOfToast = "Apploud";
-        int lengthOfToast = Toast.LENGTH_SHORT;
-
-        Toast.makeText(appContext, textOfToast, lengthOfToast).show();
-        Log.d("", "Apploud");
+        Log.d("Log", "Apploud");
     }
 }
