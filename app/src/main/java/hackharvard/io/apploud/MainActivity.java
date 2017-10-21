@@ -1,76 +1,80 @@
 package hackharvard.io.apploud;
 
 import android.content.Context;
-import android.media.MediaPlayer;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.io.File;
+import java.io.FileOutputStream;
 
 public class MainActivity extends AppCompatActivity {
-    Context context = this;
-    MediaPlayer mplayer;
-    MediaPlayer mediaPlayer[] = new MediaPlayer[10];
+    //Context context = this;
 
-    int countPlayer = 0;
 
-    int tapAmount = 0;
-    int time = 1000;
-    int frequency = 0;
-    Timer timer;
+    EditText inputBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        for (int i = 0; i < 10; i++){
-            mediaPlayer[i] = MediaPlayer.create(context, R.raw.clap1);
-        }
-        //mplayer = MediaPlayer.create(context, R.raw.clap1);
+        inputBox = (EditText) findViewById(R.id.textInputBox);
 
-        timer = new Timer();
-        TimerTask timerTask = new TimerTask() {
+        inputBox.setOnEditorActionListener(new EditText.OnEditorActionListener(){
             @Override
-            public void run() {
-                frequency = tapAmount;
-                tapAmount = 0;
-                Log.d("Frequency", ""+frequency);
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event){
+                if(actionId == EditorInfo.IME_ACTION_DONE){
+                    start();
+
+                }
+                return false;
             }
-        };
-        timer.schedule(timerTask, time, time);
+        });
+
     }
 
-    public void onClick(View v)
-    {
-        Log.d("Log", "Apploud");
+    public void startButton(View v){
+        start();
+    }
 
-        tapAmount++;
+    public void start(){
+        String testInput = inputBox.getText().toString();
 
-        try{
-            if(countPlayer > 9){
-                countPlayer = 0;
+        if(testInput.isEmpty()){
+            Context appContext = getApplicationContext();
+            CharSequence ErrorToast = "Name can't be empty!";
+            int lengthToast = Toast.LENGTH_SHORT;
+            Toast.makeText(appContext, ErrorToast, lengthToast).show();
+            //Log.d("Error:", "Name can't be empty.");
+        }
+        else{
+            File saveName = new File("saveName");
+            if(saveName.exists()){
+                MainActivity.this.deleteFile("saveName");
             }
-            if(mediaPlayer[countPlayer].isPlaying()){
-                mediaPlayer[countPlayer].stop();
-                mediaPlayer[countPlayer].release();
-                if (frequency > 0 && frequency < 5) {
-                    mediaPlayer[countPlayer] = MediaPlayer.create(context, R.raw.clap1);
-                }
-                else if (frequency >= 5 && frequency < 7){
-                    mediaPlayer[countPlayer] = MediaPlayer.create(context, R.raw.clap1);
-                }
-                else {
-                    mediaPlayer[countPlayer] = MediaPlayer.create(context, R.raw.clap1);
-                }
+
+            try{
+                FileOutputStream outputStream = openFileOutput("saveName",
+                        MainActivity.this.MODE_PRIVATE);
+                outputStream.write(testInput.getBytes());
+                outputStream.close();
+                Log.d("saved", " success");
             }
-            mediaPlayer[countPlayer].start();
-            countPlayer++;
-        } catch (Exception e){
-            Log.d("", "can't play audio.");
+            catch(Exception e){
+                e.printStackTrace();
+            }
+
+            Intent intent = new Intent(this, Clapper.class);
+            startActivity(intent);
         }
     }
+
 }
