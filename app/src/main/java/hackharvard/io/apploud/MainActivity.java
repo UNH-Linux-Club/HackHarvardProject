@@ -7,9 +7,17 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class MainActivity extends AppCompatActivity {
     Context context = this;
     MediaPlayer mplayer;
+
+    int tapAmount = 0;
+    int time = 1000;
+    int frequency = 0;
+    Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,11 +25,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mplayer = MediaPlayer.create(context, R.raw.clap1);
+
+        timer = new Timer();
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                frequency = tapAmount;
+                tapAmount = 0;
+                Log.d("Frequency", ""+frequency);
+            }
+        };
+        timer.schedule(timerTask, time, time);
     }
 
     public void onClick(View v)
     {
         Log.d("Log", "Apploud");
+
+        tapAmount++;
 
         try{
             if(mplayer.isPlaying()){
