@@ -4,7 +4,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="hackharvard.io.apploud.MainActivity">
+        tools:context="hackharvard.io.apploud.MainActivity"
+        android:background="@color/white">
 
     <EditText
         android:id="@+id/textInputBox"
@@ -12,16 +13,18 @@
         android:inputType="textPersonName"
         android:hint="Enter Your Name"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/startBtn"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="34dp" />
 
     <Button
         android:id="@+id/startBtn"
         android:onClick="startButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textInputBox"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="32dp"
-        android:text="Start" />
+        android:text="Start"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 </android.widget.RelativeLayout>
