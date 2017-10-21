@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$USER_HOME$/Documents/Code/HackHarvard/HackHarvard.iml" filepath="$USER_HOME$/Documents/Code/HackHarvard/HackHarvard.iml" />
+      <module fileurl="file://$PROJECT_DIR$/HackHarvardProject.iml" filepath="$PROJECT_DIR$/HackHarvardProject.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$USER_HOME$/Documents/Code/HackHarvard/app/app.iml" filepath="$USER_HOME$/Documents/Code/HackHarvard/app/app.iml" />
     </modules>
   </component>
