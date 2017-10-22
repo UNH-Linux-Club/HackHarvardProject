@@ -65,40 +65,6 @@ public class Clapper extends AppCompatActivity {
         clapCounter++;
         tickerView.setText(""+clapCounter);
         changeImage();
-        //tickerView.setTextAlignment("center");
-        //textView.setText(clapCounter+"");
         claps.doClap();
-        //sentScore();
     }
-
-    /*private void sentScore(){
-        try {
-            URL url = new URL("http://34.212.28.238:5000/scores");
-            HttpURLConnection client = (HttpURLConnection) url.openConnection();
-            Log.d("Connection", "successfull");
-            client.setRequestMethod("POST");
-            Log.d("POST", "Initialized");
-            /*client.setRequestProperty("NAME", "TEST");
-            Log.d("Sent", "Name");
-            client.setRequestProperty("SCORE", clapCounter+"");
-            Log.d("Sent", "Score");
-            client.setDoOutput(true);
-
-            OutputStream outputPost = new BufferedOutputStream(client.getOutputStream());
-            BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(outputPost, "UTF-8"));
-            Log.d("OutputPost", "created");
-            //writeStream(outputPost);
-            writer.write("Test");
-            writer.write(""+clapCounter);
-            writer.flush();
-            Log.d("OutputPost", "flushed");
-            writer.close();
-            Log.d("OutputPost", "closed");
-            outputPost.close();
-            client.connect();
-        }
-        catch (Exception e){
-            Log.d("Error", "Could not save scores");
-        }
-    }*/
 }
